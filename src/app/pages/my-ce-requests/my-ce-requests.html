@@ -1,0 +1,88 @@
+<main class="page container-fluid">
+  <!-- User card -->
+  <section class="card border-0 shadow-sm user-card">
+    <div class="card-body d-flex align-items-center gap-3">
+      <div class="user-card__avatar">{{ user.initials }}</div>
+      <div class="flex-grow-1">
+        <p class="user-card__name mb-0">{{ user.name }}</p>
+        <p class="user-card__meta mb-0">{{ user.role }} · {{ user.department }}</p>
+      </div>
+      <span class="badge rounded user-card__sso">● Signed in via SSO</span>
+    </div>
+  </section>
+
+  <!-- Toolbar -->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 my-3">
+    <h1 class="toolbar__title mb-0">My CE Requests</h1>
+    <div class="d-flex align-items-center gap-2">
+      <div class="search-wrapper">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          class="search-input"
+          type="search"
+          placeholder="Search estimate or project…"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+        />
+      </div>
+      <button type="button" class="btn btn-primary text-nowrap cta" (click)="createRequest()">
+        + Create New CE Request
+      </button>
+    </div>
+  </div>
+
+  <!-- Requests table -->
+  <div class="card border-0 shadow-sm overflow-hidden">
+    <table class="table table-hover align-middle mb-0 ce-table">
+      <thead>
+        <tr>
+          <th>Estimate Number</th>
+          <th>Project Title</th>
+          <th>CE Request Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (request of filteredRequests(); track request.estimateNumber) {
+          <tr>
+            <td class="fw-bold cell--estimate">{{ request.estimateNumber }}</td>
+            <td>{{ request.projectTitle }}</td>
+            <td>{{ request.requestDate | date: 'dd-MMM-yyyy' }}</td>
+            <td>
+              <span class="badge rounded-pill" [class]="statusClass(request.status)">
+                ● {{ request.status }}
+              </span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-link p-0 link" (click)="view(request)">
+                View
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="text-center text-secondary py-5" colspan="5">
+              No CE requests match your search.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination (ng-bootstrap NgbPagination) -->
+  <footer class="d-flex flex-wrap align-items-center justify-content-between gap-3 mt-3 pager">
+    <span class="pager__summary">
+      Showing {{ (currentPage() - 1) * pageSize + 1 }}–{{ (currentPage() - 1) * pageSize + filteredRequests().length }} of {{ filteredTotal() }} requests
+    </span>
+    <ngb-pagination
+      [collectionSize]="filteredTotal()"
+      [pageSize]="pageSize"
+      [page]="currentPage()"
+      (pageChange)="currentPage.set($event)"
+      [maxSize]="5"
+      [boundaryLinks]="false"
+    />
+  </footer>
+</main>

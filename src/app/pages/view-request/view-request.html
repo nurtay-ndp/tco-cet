@@ -1,0 +1,55 @@
+<main class="page">
+
+  <!-- Title row -->
+  <div class="page-header">
+    <h1 class="page-title">CE Request · <span class="estimate-number">{{ request().estimateNumber }}</span></h1>
+    <span class="badge" [class]="statusClass(request().status)">● {{ request().status }}</span>
+  </div>
+
+  <!-- Details card -->
+  <div class="details-card">
+    <p class="details-card__subtitle">Project Details (read-only)</p>
+    <hr class="details-card__divider" />
+
+    <div class="fields-grid">
+      <div class="field-group">
+        <label class="field-label">Estimate Number</label>
+        <input class="field-input" type="text" [value]="request().estimateNumber" disabled />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Project Name</label>
+        <input class="field-input" type="text" [value]="request().projectName" disabled />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Request Date</label>
+        <input class="field-input" type="text" [value]="request().requestDate" disabled />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Project Team</label>
+        <input class="field-input" type="text" [value]="request().projectTeam" disabled />
+      </div>
+      <div class="field-group">
+        <label class="field-label">AFE No.</label>
+        <input class="field-input" type="text" [value]="request().afeNumber" disabled />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Design Progress</label>
+        <input class="field-input" type="text" [value]="request().designProgress" disabled />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Preliminary Cost Estimate Deadline</label>
+        <input class="field-input" type="text" [value]="request().preliminaryCostDeadline" disabled />
+      </div>
+      <div class="field-group">
+        <label class="field-label">IBP / Turnaround Year</label>
+        <input class="field-input" type="text" [value]="request().ibpTurnaroundYear" disabled />
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <button class="btn-back" type="button" (click)="goBack()">‹ Back to My Requests</button>
+
+</main>

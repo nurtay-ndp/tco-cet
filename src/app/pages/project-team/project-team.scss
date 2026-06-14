@@ -1,0 +1,223 @@
+.page {
+  max-width: 900px;
+  padding: 2rem 1.5rem;
+  background: #eef1f6;
+  min-height: 100vh;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1.25rem;
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    background: #fff;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &:hover {
+      border-color: #3a5a8c;
+      color: #3a5a8c;
+    }
+
+    &.active {
+      background: white;
+      color: #3a5a8c;
+      border-color: #3a5a8c;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background: #9ca3af;
+      color: white;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .step-label {
+      font-weight: 600;
+    }
+
+    &.active .step-number {
+      background: #3a5a8c;
+      color: white;
+    }
+  }
+}
+
+/* Form Container */
+.form-container {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f1b2d;
+  margin: 0 0 2rem 0;
+}
+
+/* Form */
+.form {
+  display: grid;
+  gap: 1.75rem;
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+
+    .required {
+      color: #dc2626;
+      margin-left: 0.25rem;
+    }
+
+    .info-icon {
+      vertical-align: middle;
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+      color: #6b7280;
+      cursor: help;
+    }
+  }
+
+  .form-input,
+  .form-select {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    color: #1f2937;
+    background: white;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #3a5a8c;
+      box-shadow: 0 0 0 3px rgba(58, 90, 140, 0.1);
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.75rem;
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #1f2937;
+
+      input[type="radio"] {
+        cursor: pointer;
+        accent-color: #3a5a8c;
+      }
+    }
+  }
+
+  .helper-text {
+    font-size: 0.85rem;
+    color: #047857;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+
+  .btn {
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    border: none;
+    min-width: 200px;
+    text-align: center;
+
+    &.btn-secondary {
+      background: white;
+      color: #3a5a8c;
+      border: 2px solid #d1d5db;
+      flex: 0 0 auto;
+
+      &:hover {
+        background: #f9fafb;
+        border-color: #3a5a8c;
+      }
+    }
+
+    &.btn-primary {
+      background: #3a5a8c;
+      color: white;
+      flex: 0 0 auto;
+
+      &:hover {
+        background: #2d4866;
+        box-shadow: 0 2px 8px rgba(58, 90, 140, 0.2);
+      }
+    }
+  }
+}

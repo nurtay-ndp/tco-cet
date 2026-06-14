@@ -1,0 +1,28 @@
+<!-- Header with Navigation -->
+<header class="app-header">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="header-left d-flex align-items-center gap-3">
+      <h1 class="header-title mb-0">CE Request Flow</h1>
+      <nav class="header-nav">
+        <ul class="nav-menu">
+          @for (item of navigationItems; track $index) {
+            <li class="nav-item" [class.active]="item.active">
+              <button
+                type="button"
+                class="nav-link"
+                (click)="navigate(item)"
+              >
+                {{ item.label }}
+              </button>
+            </li>
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="page container-fluid">
+  <router-outlet></router-outlet>
+</main>

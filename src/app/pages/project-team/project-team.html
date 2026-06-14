@@ -1,0 +1,100 @@
+<main class="page">
+  <!-- Steps -->
+  <div class="steps">
+    @for (step of steps; track step.number) {
+      <button
+        class="step"
+        [class.active]="step.active"
+        type="button"
+      >
+        <span class="step-number">{{ step.number }}</span>
+        <span class="step-label">{{ step.label }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Form -->
+  <div class="form-container">
+    <h1 class="form-title">Step {{ steps[0].number }} · {{ steps[0].label }}</h1>
+
+    <form class="form">
+      <!-- Row 1: Project Team & AFE Number -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">
+            Project Team
+            <span class="required">*</span>
+          </label>
+          <select
+            class="form-select"
+            [(ngModel)]="formData().projectTeam"
+            name="projectTeam"
+          >
+            @for (team of teams; track team) {
+              <option [value]="team">{{ team }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            AFE No.
+            <span class="required">*</span>
+            <mat-icon class="info-icon" matTooltip="Mandatory. Provide Cost Centre of AFE No. if not available.">
+              info
+            </mat-icon>
+          </label>
+          <input
+            class="form-input"
+            type="text"
+            [(ngModel)]="formData().afeNumber"
+            name="afeNumber"
+            placeholder="Enter AFE Number"
+          />
+          <p class="helper-text">Mandatory. Provide Cost Centre of AFE No. is not available.</p>
+        </div>
+      </div>
+
+      <!-- Is this a new Project -->
+      <div class="form-group">
+        <label class="form-label">
+          Is this a new Project?
+          <span class="required">*</span>
+        </label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input
+              type="radio"
+              name="isNewProject"
+              [value]="true"
+              [(ngModel)]="formData().isNewProject"
+            />
+            <span>Yes</span>
+          </label>
+          <label class="radio-label">
+            <input
+              type="radio"
+              name="isNewProject"
+              [value]="false"
+              [(ngModel)]="formData().isNewProject"
+            />
+            <span>No</span>
+          </label>
+        </div>
+        <p class="helper-text">
+          "Yes" opens a blank New Project form (Step 3a). "No" lets you search an existing project, then pre-fills its details (Step 3b).
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="goBack()">
+      ‹ Back to My Requests
+    </button>
+    <button class="btn btn-primary" (click)="continue()">
+      Continue ›
+    </button>
+  </div>
+</main>
