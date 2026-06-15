@@ -28,9 +28,9 @@ export class NewProjectComponent {
   private readonly state = inject(CeRequestStateService);
 
   protected readonly steps = [
-    { number: 2, label: 'Project Team', completed: true },
-    { number: 3, label: 'Project Details · New', active: true },
-    { number: 4, label: 'Questionnaire' },
+    { number: 1, label: 'Project Team', completed: true },
+    { number: 2, label: 'Project Details · New', active: true },
+    { number: 3, label: 'Questionnaire' },
   ];
 
   protected readonly estimateRequestTypes = ESTIMATE_REQUEST_TYPES;
@@ -67,8 +67,8 @@ export class NewProjectComponent {
       projectManagementType: f.projectManagementType,
       cpdepPhase: f.cpdepPhase,
       projectTitle: f.projectTitle,
-      projectNumberFree: f.projectNumberFree,
-      projectCodeFree: f.projectCodeFree,
+      projectNumber: f.projectNumber,
+      projectCode: f.projectCode,
       designProgress: f.designProgress,
       anticipatedCompletionDate: f.anticipatedCompletionDate,
       area: f.area,

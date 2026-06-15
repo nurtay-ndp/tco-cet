@@ -10,7 +10,7 @@
     }
   </div>
 
-  <h1 class="page-title">Step 3a · New Project Details</h1>
+  <h1 class="page-title">Step 2a · New Project Details</h1>
 
   <!-- Form -->
   <div class="form-card">
@@ -18,8 +18,8 @@
 
       <!-- Row 1 -->
       <div class="form-group">
-        <label class="form-label">Project Number <span class="required">*</span></label>
-        <input class="form-input" type="text" placeholder="Auto-assigned on approval" disabled />
+        <label class="form-label">Project Title <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="formData().projectTitle" name="projectTitle" />
       </div>
       <div class="form-group">
         <label class="form-label">
@@ -33,12 +33,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">
-          Project Management Type <span class="required">*</span>
-          <mat-icon class="info-icon">info</mat-icon>
-        </label>
-        <select class="form-select" [(ngModel)]="formData().projectManagementType" name="projectManagementType">
-          @for (opt of projectManagementTypes; track opt) {
+        <label class="form-label">Area <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().area" name="area">
+          @for (opt of areaOptions; track opt) {
             <option [value]="opt">{{ opt }}</option>
           }
         </select>
@@ -46,50 +43,17 @@
 
       <!-- Row 2 -->
       <div class="form-group">
-        <label class="form-label">AFE No. <span class="required">*</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().afeNumber" name="afeNumber" />
+        <label class="form-label">Estimate Title <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="formData().estimateTitle" name="estimateTitle" />
         <p class="helper-text">Mandatory.</p>
       </div>
       <div class="form-group">
-        <label class="form-label">CPDEP Phase <span class="required">*</span></label>
-        <select class="form-select" [(ngModel)]="formData().cpdepPhase" name="cpdepPhase">
-          @for (opt of cpdepPhases; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Project Title <span class="required">*</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().projectTitle" name="projectTitle" placeholder="Enter project title" />
-      </div>
-
-      <!-- Row 3 -->
-      <div class="form-group">
-        <label class="form-label">Project Number <span class="free-field">(free field)</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().projectNumberFree" name="projectNumberFree" placeholder="Optional reference" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Project Code <span class="free-field">(free field)</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().projectCodeFree" name="projectCodeFree" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Design progress <span class="required">*</span></label>
-        <select class="form-select" [(ngModel)]="formData().designProgress" name="designProgress">
-          @for (opt of designProgressOptions; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
-      </div>
-
-      <!-- Row 4 -->
-      <div class="form-group">
-        <label class="form-label">Anticipated Project Completion Date <span class="required">*</span></label>
-        <input class="form-input" type="date" [(ngModel)]="formData().anticipatedCompletionDate" name="anticipatedCompletionDate" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Area <span class="required">*</span></label>
-        <select class="form-select" [(ngModel)]="formData().area" name="area">
-          @for (opt of areaOptions; track opt) {
+        <label class="form-label">
+          Project Management Type <span class="required">*</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </label>
+        <select class="form-select" [(ngModel)]="formData().projectManagementType" name="projectManagementType">
+          @for (opt of projectManagementTypes; track opt) {
             <option [value]="opt">{{ opt }}</option>
           }
         </select>
@@ -103,10 +67,18 @@
         </select>
       </div>
 
-      <!-- Row 5 -->
+      <!-- Row 3 -->
       <div class="form-group">
-        <label class="form-label">Preliminary Cost Estimate Deadline <span class="required">*</span></label>
-        <input class="form-input" type="date" [(ngModel)]="formData().preliminaryCostDeadline" name="preliminaryCostDeadline" />
+        <label class="form-label">Project Number <span class="required">*</span></label>
+        <input class="form-input" type="text" [(ngModel)]="formData().projectNumber" name="projectNumber" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">CPDEP Phase <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().cpdepPhase" name="cpdepPhase">
+          @for (opt of cpdepPhases; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
       </div>
       <div class="form-group">
         <label class="form-label">IBP <span class="required">*</span></label>
@@ -116,10 +88,35 @@
           }
         </select>
       </div>
+
+      <!-- Row 4 -->
+      <div class="form-group">
+        <label class="form-label">Project Code</label>
+        <input class="form-input" type="text" [(ngModel)]="formData().projectCode" name="projectCode" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anticipated Project Completion Date <span class="required">*</span></label>
+        <input class="form-input" type="date" [(ngModel)]="formData().anticipatedCompletionDate" name="anticipatedCompletionDate" />
+      </div>
       <div class="form-group">
         <label class="form-label">TA Year <span class="required">*</span></label>
         <select class="form-select" [(ngModel)]="formData().taYear" name="taYear">
           @for (opt of taYearOptions; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Row 5 -->
+      <div class="form-group"></div>
+      <div class="form-group">
+        <label class="form-label">Preliminary Cost Estimate Deadline <span class="required">*</span></label>
+        <input class="form-input" type="date" [(ngModel)]="formData().preliminaryCostDeadline" name="preliminaryCostDeadline" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Design progress <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().designProgress" name="designProgress">
+          @for (opt of designProgressOptions; track opt) {
             <option [value]="opt">{{ opt }}</option>
           }
         </select>

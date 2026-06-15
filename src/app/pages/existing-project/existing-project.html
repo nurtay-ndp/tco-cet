@@ -10,116 +10,176 @@
     }
   </div>
 
-  <h1 class="page-title">Step 3b · Existing Project Details</h1>
+  <h1 class="page-title">Step 2b · Existing Project Details</h1>
 
   <!-- Search Section -->
   <div class="search-card">
     <p class="search-card__title">Search Existing Project</p>
-
     <div class="search-row">
       <div class="form-group">
-        <label class="form-label">Project Title <span class="required">*</span></label>
-        <div class="search-input-group">
-          <input
-            class="form-input"
-            type="text"
-            [(ngModel)]="formData().projectTitle"
-            name="projectTitle"
-          />
-          <button class="btn btn-search" type="button" (click)="search()">Search</button>
-        </div>
+        <label class="form-label">Estimate Year <span class="required">*</span></label>
+        <input class="form-input search-short" type="text" [(ngModel)]="formData().estimateYear" name="estimateYear" />
       </div>
+      <span class="search-dash">—</span>
+      <div class="form-group">
+        <label class="form-label">Sequence Number <span class="required">*</span></label>
+        <input class="form-input search-short" type="text" [(ngModel)]="formData().sequenceNumber" name="sequenceNumber" />
+      </div>
+      <button class="btn-search" type="button" (click)="search()">Search</button>
     </div>
-
-    <div class="form-group" style="max-width: 480px; margin-top: 1rem;">
-      <label class="form-label">Estimate Title <span class="required">*</span></label>
-      <select class="form-select" [(ngModel)]="formData().estimateTitle" name="estimateTitle">
-        @for (opt of estimateTitles; track opt) {
-          <option [value]="opt">{{ opt }}</option>
-        }
-      </select>
-      <p class="helper-text">Project Number & Project Title pre-populate from the selected estimate.</p>
-    </div>
+    <p class="search-hint">Please enter Estimate Year and Sequence Number</p>
   </div>
 
   <!-- Form -->
   <div class="form-card">
-    <form class="form-grid">
 
-      <!-- Row 1 -->
-      <div class="form-group">
-        <label class="form-label">Project Number <span class="required">*</span></label>
-        <input class="form-input" type="text" [ngModel]="formData().projectNumber" name="projectNumber" disabled />
-      </div>
+    <!-- Section 1: Project info -->
+    <div class="info-grid">
+
+      <!-- Project Title -->
       <div class="form-group">
         <label class="form-label">
-          Estimate Request Type <span class="required">*</span>
+          Project Title <span class="required">*</span>
           <mat-icon class="info-icon">info</mat-icon>
         </label>
+        @if (editingFields()['projectTitle']) {
+          <input class="form-input" type="text" name="projectTitle"
+            [ngModel]="formData().projectTitle"
+            (ngModelChange)="updateField('projectTitle', $event)"
+            (blur)="endEdit('projectTitle')" autofocus />
+        } @else {
+          <div class="edit-display-field">
+            <select class="hidden-native-select-full"
+              [ngModel]="formData().projectTitle"
+              (ngModelChange)="handleSelectChange('projectTitle', $event)">
+              @for (opt of projectTitleOptions; track opt) {
+                <option [value]="opt">{{ opt }}</option>
+              }
+              <option value="__create_new__">+ Create New</option>
+            </select>
+            <span class="edit-display-field__value">{{ formData().projectTitle }}</span>
+            <div class="edit-overlay">
+              <button type="button" class="edit-overlay__btn" (click)="startEdit('projectTitle', $event)">Edit</button>
+              <span class="edit-overlay__sep"></span>
+              <span class="edit-overlay__arrow"></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Project Number -->
+      <div class="form-group">
+        <label class="form-label">Project Number</label>
+        @if (editingFields()['projectNumber']) {
+          <input class="form-input" type="text" name="projectNumber"
+            [ngModel]="formData().projectNumber"
+            (ngModelChange)="updateField('projectNumber', $event)"
+            (blur)="endEdit('projectNumber')" autofocus />
+        } @else {
+          <div class="edit-display-field">
+            <select class="hidden-native-select-full"
+              [ngModel]="formData().projectNumber"
+              (ngModelChange)="handleSelectChange('projectNumber', $event)">
+              @for (opt of projectNumberOptions; track opt) {
+                <option [value]="opt">{{ opt }}</option>
+              }
+              <option value="__create_new__">+ Create New</option>
+            </select>
+            <span class="edit-display-field__value">{{ formData().projectNumber }}</span>
+            <div class="edit-overlay">
+              <button type="button" class="edit-overlay__btn" (click)="startEdit('projectNumber', $event)">Edit</button>
+              <span class="edit-overlay__sep"></span>
+              <span class="edit-overlay__arrow"></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Sequence Title -->
+      <div class="form-group">
+        <label class="form-label">Sequence Title</label>
+        <input class="form-input" type="text" [value]="formData().sequenceTitle" disabled />
+      </div>
+
+      <!-- Estimate Title -->
+      <div class="form-group">
+        <label class="form-label">
+          Estimate Title <span class="required">*</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </label>
+        @if (editingFields()['estimateTitle']) {
+          <input class="form-input" type="text" name="estimateTitle"
+            [ngModel]="formData().estimateTitle"
+            (ngModelChange)="updateField('estimateTitle', $event)"
+            (blur)="endEdit('estimateTitle')" autofocus />
+        } @else {
+          <div class="edit-display-field">
+            <select class="hidden-native-select-full"
+              [ngModel]="formData().estimateTitle"
+              (ngModelChange)="handleSelectChange('estimateTitle', $event)">
+              @for (opt of estimateTitleOptions; track opt) {
+                <option [value]="opt">{{ opt }}</option>
+              }
+              <option value="__create_new__">+ Create New</option>
+            </select>
+            <span class="edit-display-field__value">{{ formData().estimateTitle }}</span>
+            <div class="edit-overlay">
+              <button type="button" class="edit-overlay__btn" (click)="startEdit('estimateTitle', $event)">Edit</button>
+              <span class="edit-overlay__sep"></span>
+              <span class="edit-overlay__arrow"></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Project Code -->
+      <div class="form-group">
+        <label class="form-label">Project Code</label>
+        @if (editingFields()['projectCode']) {
+          <input class="form-input" type="text" name="projectCode"
+            [ngModel]="formData().projectCode"
+            (ngModelChange)="updateField('projectCode', $event)"
+            (blur)="endEdit('projectCode')" autofocus />
+        } @else {
+          <div class="edit-display-field">
+            <select class="hidden-native-select-full"
+              [ngModel]="formData().projectCode"
+              (ngModelChange)="handleSelectChange('projectCode', $event)">
+              @for (opt of projectCodeOptions; track opt) {
+                <option [value]="opt">{{ opt }}</option>
+              }
+              <option value="__create_new__">+ Create New</option>
+            </select>
+            <span class="edit-display-field__value">{{ formData().projectCode }}</span>
+            <div class="edit-overlay">
+              <button type="button" class="edit-overlay__btn" (click)="startEdit('projectCode', $event)">Edit</button>
+              <span class="edit-overlay__sep"></span>
+              <span class="edit-overlay__arrow"></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="form-group"></div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 2: Details -->
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Estimate Request Type <span class="required">*</span></label>
         <select class="form-select" [(ngModel)]="formData().estimateRequestType" name="estimateRequestType">
+          <option value="">— Select —</option>
           @for (opt of estimateRequestTypes; track opt) {
             <option [value]="opt">{{ opt }}</option>
           }
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">
-          Project Management Type <span class="required">*</span>
-          <mat-icon class="info-icon">info</mat-icon>
-        </label>
-        <select class="form-select" [(ngModel)]="formData().projectManagementType" name="projectManagementType">
-          @for (opt of projectManagementTypes; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="form-group">
-        <label class="form-label">AFE No. <span class="required">*</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().afeNumber" name="afeNumber" />
-        <p class="helper-text">Mandatory.</p>
-      </div>
-      <div class="form-group">
-        <label class="form-label">CPDEP Phase <span class="required">*</span></label>
-        <select class="form-select" [(ngModel)]="formData().cpdepPhase" name="cpdepPhase">
-          @for (opt of cpdepPhases; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Project Title <span class="required">*</span></label>
-        <input class="form-input" type="text" [ngModel]="formData().projectTitleReadonly" name="projectTitleReadonly" disabled />
-      </div>
-
-      <!-- Row 3 -->
-      <div class="form-group">
-        <label class="form-label">Project Number <span class="free-field">(free field)</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().projectNumberFree" name="projectNumberFree" placeholder="Optional reference" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Project Code <span class="free-field">(free field)</span></label>
-        <input class="form-input" type="text" [(ngModel)]="formData().projectCodeFree" name="projectCodeFree" />
-      </div>
-      <div class="form-group">
         <label class="form-label">Design progress <span class="required">*</span></label>
         <select class="form-select" [(ngModel)]="formData().designProgress" name="designProgress">
           @for (opt of designProgressOptions; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
-      </div>
-
-      <!-- Row 4 -->
-      <div class="form-group">
-        <label class="form-label">Anticipated Project Completion Date <span class="required">*</span></label>
-        <input class="form-input" type="date" [(ngModel)]="formData().anticipatedCompletionDate" name="anticipatedCompletionDate" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Area <span class="required">*</span></label>
-        <select class="form-select" [(ngModel)]="formData().area" name="area">
-          @for (opt of areaOptions; track opt) {
             <option [value]="opt">{{ opt }}</option>
           }
         </select>
@@ -133,7 +193,36 @@
         </select>
       </div>
 
-      <!-- Row 5 -->
+      <div class="form-group">
+        <label class="form-label">Project Management Type <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().projectManagementType" name="projectManagementType">
+          <option value="">— Select —</option>
+          @for (opt of projectManagementTypes; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anticipated Project Completion Date <span class="required">*</span></label>
+        <input class="form-input" type="date" [(ngModel)]="formData().anticipatedCompletionDate" name="anticipatedCompletionDate" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Area <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().area" name="area">
+          @for (opt of areaOptions; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">CPDEP Phase <span class="required">*</span></label>
+        <select class="form-select" [(ngModel)]="formData().cpdepPhase" name="cpdepPhase">
+          @for (opt of cpdepPhases; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
       <div class="form-group">
         <label class="form-label">Preliminary Cost Estimate Deadline <span class="required">*</span></label>
         <input class="form-input" type="date" [(ngModel)]="formData().preliminaryCostDeadline" name="preliminaryCostDeadline" />
@@ -146,6 +235,9 @@
           }
         </select>
       </div>
+
+      <div class="form-group"></div>
+      <div class="form-group"></div>
       <div class="form-group">
         <label class="form-label">TA Year <span class="required">*</span></label>
         <select class="form-select" [(ngModel)]="formData().taYear" name="taYear">
@@ -154,8 +246,8 @@
           }
         </select>
       </div>
+    </div>
 
-    </form>
   </div>
 
   <!-- Actions -->

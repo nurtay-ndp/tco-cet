@@ -4,7 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import {
-  ESTIMATE_TITLES,
+  PROJECT_TITLE_OPTIONS,
+  ESTIMATE_TITLE_OPTIONS,
+  PROJECT_NUMBER_OPTIONS,
+  PROJECT_CODE_OPTIONS,
   DESIGN_PROGRESS_OPTIONS_EX,
   MOCK_EXISTING_PROJECT_FORM,
 } from '../../data/mock-existing-project';
@@ -31,12 +34,15 @@ export class ExistingProjectComponent {
   private readonly state = inject(CeRequestStateService);
 
   protected readonly steps = [
-    { number: 2, label: 'Project Team', completed: true },
-    { number: 3, label: 'Project Details · Existing', active: true },
-    { number: 5, label: 'Questionnaire' },
+    { number: 1, label: 'Project Team', completed: true },
+    { number: 2, label: 'Project Details · Existing', active: true },
+    { number: 3, label: 'Questionnaire' },
   ];
 
-  protected readonly estimateTitles = ESTIMATE_TITLES;
+  protected readonly projectTitleOptions = PROJECT_TITLE_OPTIONS;
+  protected readonly estimateTitleOptions = ESTIMATE_TITLE_OPTIONS;
+  protected readonly projectNumberOptions = PROJECT_NUMBER_OPTIONS;
+  protected readonly projectCodeOptions = PROJECT_CODE_OPTIONS;
   protected readonly estimateRequestTypes = ESTIMATE_REQUEST_TYPES;
   protected readonly projectManagementTypes = PROJECT_MANAGEMENT_TYPES;
   protected readonly cpdepPhases = CPDEP_PHASES;
@@ -47,9 +53,32 @@ export class ExistingProjectComponent {
   protected readonly taYearOptions = TA_YEAR_OPTIONS;
 
   protected formData = signal({ ...MOCK_EXISTING_PROJECT_FORM });
+  protected editingFields = signal<Record<string, boolean>>({});
+
+  protected startEdit(field: string, event: Event): void {
+    event.stopPropagation();
+    this.editingFields.update(m => ({ ...m, [field]: true }));
+  }
+
+  protected endEdit(field: string): void {
+    this.editingFields.update(m => ({ ...m, [field]: false }));
+  }
+
+  protected updateField(field: string, value: string): void {
+    this.formData.update(f => ({ ...f, [field]: value }));
+  }
+
+  protected handleSelectChange(field: string, value: string): void {
+    if (value === '__create_new__') {
+      this.formData.update(f => ({ ...f, [field]: '' }));
+      this.editingFields.update(m => ({ ...m, [field]: true }));
+    } else {
+      this.updateField(field, value);
+    }
+  }
 
   protected search(): void {
-    console.log('Searching for:', this.formData().projectTitle);
+    console.log('Searching:', this.formData().estimateYear, this.formData().sequenceNumber);
   }
 
   protected goBack(): void {
@@ -74,9 +103,7 @@ export class ExistingProjectComponent {
       estimateRequestType: f.estimateRequestType,
       projectManagementType: f.projectManagementType,
       cpdepPhase: f.cpdepPhase,
-      projectTitle: f.projectTitleReadonly,
-      projectNumberFree: f.projectNumberFree,
-      projectCodeFree: f.projectCodeFree,
+      projectTitle: f.projectTitle,
       designProgress: f.designProgress,
       anticipatedCompletionDate: f.anticipatedCompletionDate,
       area: f.area,
